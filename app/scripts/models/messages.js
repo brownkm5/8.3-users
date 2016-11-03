@@ -6,7 +6,7 @@ var Message = Backbone.Model.extend({
 
 var MessageCollection = Backbone.Collection.extend({
   model: Message,
-  url: 'https://tiny-lasagna-server.herokuapp.com/collections/kevinmessage2'
+  url: 'https://kevinbrowntown.herokuapp.com/classes/Messages'
 });
 
 module.exports = {
