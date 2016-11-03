@@ -78,7 +78,11 @@ var SignUpComponent = React.createClass({
 
 var LoginContainer = React.createClass({
   handleSubmit: function(user){
-    console.log(user);
+    var userData = JSON.stringify(user);
+    // console.log(userData);
+    localStorage.setItem('user', userData);
+    var router = this.props.router;
+    router.navigate('chat/', {trigger: true});
   },
   render: function(){
     return(
