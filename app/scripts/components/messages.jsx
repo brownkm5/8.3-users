@@ -7,14 +7,23 @@ var MessageCollection = require('../models/messages.js').MessageCollection;
 
 
 var MessageForm = React.createClass({
+  getInitialState: function(){
+    return {
+      message: ''
+    }
+  },
   handleMessage: function(e){
     var message = e.target.value;
+    this.setState({message: message});
     this.props.handleMessage(message);
+
+
   },
   handleSubmit: function(e){
     e.preventDefault();
 
     this.props.handleSubmit();
+    this.setState({message: ''});
   },
   render: function(){
     var self = this;
@@ -27,7 +36,7 @@ var MessageForm = React.createClass({
             <form onSubmit={self.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="messages">Messages</label>
-                <input onChange={self.handleMessage} className="form-control" name="email" id="messages" type="text" placeholder="Message" />
+                <input onChange={self.handleMessage} className="form-control" name="email" value={self.state.message} id="messages" type="text" placeholder="Message" />
                 <button className='btn btn-success' type="submit" name="button">Send Message</button>
               </div>
             </form>
