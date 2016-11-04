@@ -30,11 +30,11 @@ var LoginComponent = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
 
-    var user = {
-      email: this.state.email,
+    var userInfo = {
+      username: this.state.email,
       password: this.state.password
     };
-    this.props.handleSubmit(user);
+    this.props.handleSubmit(userInfo);
   },
   render: function(){
     var self = this;
@@ -126,12 +126,20 @@ var LoginContainer = React.createClass({
       }
     });
   },
-  handleSubmit: function(user){
-    var userData = JSON.stringify(user);
-    // console.log(userData);
-    localStorage.setItem('user', userData);
-    var router = this.props.router;
-    router.navigate('chat/', {trigger: true});
+  handleSubmit: function(userInfo){
+    var username = userInfo.username;
+    var password = userInfo.password;
+    // console.log(userInfo);
+    var self = this;
+    var url = 'https://kevinbrowntown.herokuapp.com/';
+
+    $.ajax(url + 'login?username=' + username + '&password=' + password).then(function(response){
+      localStorage.setItem('username', response.username);
+      localStorage.setItem('token', response.sessionToken);
+      if (response.sessionToken) {
+        self.props.router.navigate('chat/', {trigger: true});
+      };
+    });
   },
   handleSignUp: function(userData){
     console.log(userData);

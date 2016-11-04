@@ -19,7 +19,7 @@ var AppRouter = Backbone.Router.extend({
   },
   chat: function(){
     ReactDOM.render(
-      React.createElement(MessageContainer),
+      React.createElement(MessageContainer, {router:this}),
       document.getElementById('app')
     )
   }
